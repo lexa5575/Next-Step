@@ -4,16 +4,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use \App\Http\Controllers\FormController;
 
 
-
-Route::view('/', 'welcome');
+Route::get('/', function () {
+    return view('welcome');
+})->name('home-form');
 // функция перенаправления, не знаю зачем она мне будет нужна
-Route::redirect('/home', '/');
+//Route::redirect('/home', '/');
 
 Route::get('test', TestController::class);
 
-
+Route::post('/form', [FormController::class, 'submit'])->name('button');
 // CRUD (create, read, update, delete)
 Route::get('posts', [PostController::class, 'index'])->name('posts');
 Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
